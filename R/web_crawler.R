@@ -1,10 +1,10 @@
-# library(RSelenium)
+library(RSelenium)
 library(stringr)
 library(readr)
 library(rvest)
-# library(wdman)
-# library(binman)
-# library(netstat) # find a free port
+library(wdman)
+library(binman)
+library(netstat) # find a free port
 
 # Extract the date of data report ===========================
 url <- "https://worldhealthorg.shinyapps.io/dengue_global/"
@@ -42,23 +42,23 @@ write_csv(table, file = paste0('data/report_date.csv'), append = TRUE)
 
 #
 #
-# binman::list_versions('chromedriver') # make sure chrome version == chromedriver version
-# chrome(port = 4837L, version = '125.0.6422.114')
-# rs_driver_object = rsDriver(browser = 'chrome',
-#                    chromever = '125.0.6422.114',
-#                    # extraCapabilities = eCaps,
-#                    port = free_port()
-#                    )
+binman::list_versions('chromedriver') # make sure chrome version == chromedriver version
+chrome(port = 4837L, version = '125.0.6422.114')
+rs_driver_object = rsDriver(browser = 'chrome',
+                   chromever = '125.0.6422.114',
+                   # extraCapabilities = eCaps,
+                   port = free_port()
+                   )
 #
 #
-# remDr = rs_driver_object$client
-#
-# remDr$open()
-# remDr$navigate('https://worldhealthorg.shinyapps.io/dengue_global/')
-# # remDr$getPageSource()
-# remDr$findElement(using = "id", "closeModal")$clickElement() # find and click "I accept" button
-# remDr$findElement(using = "xpath", value = "//a[@data-value='dl_data']")$clickElement() # find and click "download data" in the menu
-# remDr$findElement(using = "id", "dl_all_data")$clickElement() # download global data
+remDr = rs_driver_object$client
+
+remDr$open()
+remDr$navigate('https://worldhealthorg.shinyapps.io/dengue_global/')
+# remDr$getPageSource()
+remDr$findElement(using = "id", "closeModal")$clickElement() # find and click "I accept" button
+remDr$findElement(using = "xpath", value = "//a[@data-value='dl_data']")$clickElement() # find and click "download data" in the menu
+remDr$findElement(using = "id", "dl_all_data")$clickElement() # download global data
 
 
 # # close browser
