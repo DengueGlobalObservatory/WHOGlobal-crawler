@@ -62,6 +62,8 @@ jobs:
             any::binman
             any::netstat
       - uses: browser-actions/setup-chrome@v1
+      - uses: nanasess/setup-chromedriver@v2
+
 
       - name: Generate data
         run: |
