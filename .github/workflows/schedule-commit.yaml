@@ -51,13 +51,7 @@ jobs:
           
         shell: Rscript {0}
       
-      - name: Install packages
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: |
-            any::rvest
-            any::string
-            
+       
       - name: Generate data
         run: |
           source("R/web_crawler.R")
