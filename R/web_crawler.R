@@ -42,10 +42,10 @@ write_csv(table, file = paste0('data/report_date.csv'), append = TRUE)
 
 #
 #
-binman::list_versions('chromedriver') # make sure chrome version == chromedriver version
-chrome(port = 4837L, version = '125.0.6422.114')
-rs_driver_object = rsDriver(browser = 'chrome',
-                   chromever = '125.0.6422.114',
+# binman::list_versions('chromedriver') # make sure chrome version == chromedriver version
+# chrome(port = 4837L, version = '125.0.6422.114')
+rs_driver_object = rsDriver(browser = 'firefox',
+                   # chromever = '125.0.6422.114',
                    # extraCapabilities = eCaps,
                    port = free_port()
                    )
