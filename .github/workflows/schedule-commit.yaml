@@ -60,7 +60,7 @@ jobs:
             any::RSelenium
             any::wdman
             any::binman
-            any::netstat
+
       - uses: browser-actions/setup-firefox@v1
       - run: firefox --version
 

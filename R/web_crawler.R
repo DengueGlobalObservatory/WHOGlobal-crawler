@@ -47,7 +47,7 @@ write_csv(table, file = paste0('data/report_date.csv'), append = TRUE)
 rs_driver_object = rsDriver(browser = 'firefox',
                    # chromever = '125.0.6422.114',
                    # extraCapabilities = eCaps,
-                   port = free_port()
+                   port = 4567L
                    )
 #
 #
