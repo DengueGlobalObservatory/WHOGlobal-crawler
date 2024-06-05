@@ -1,7 +1,7 @@
 # library(RSelenium)
-# library(stringr)
-# library(readr)
-# library(rvest)
+library(stringr)
+library(readr)
+library(rvest)
 # library(wdman)
 # library(binman)
 # library(netstat) # find a free port
