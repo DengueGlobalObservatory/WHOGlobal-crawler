@@ -1,0 +1,32 @@
+name: Download and Push File
+
+on:
+  push:
+
+jobs:
+  download_and_push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12.3' # Specify the Python version you're using
+
+    - name: Install dependencies
+      run: |
+        pip install selenium
+        # Ensure you have the WebDriver executable for your browser available in the PATH
+
+    - name: Download file
+      run: python scraper_test.py # Replace with the path to your Python script
+
+    - name: Commit and push changes
+      run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add --all
+          git commit -am "add data"
+          git push 
