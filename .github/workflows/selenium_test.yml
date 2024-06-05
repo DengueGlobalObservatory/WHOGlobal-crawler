@@ -37,4 +37,6 @@ jobs:
 
       # Run R script
       - name: Script
-        run: Rscript -e 'source('R/selenium.r')'
+        run: |
+          source("R/selenium.R")
+        shell: Rscript {0}
