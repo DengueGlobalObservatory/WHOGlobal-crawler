@@ -6,10 +6,11 @@ Authors@R:
            comment = c(ORCID = "0000-0003-4445-5034"))
 Description: Contains an repository for running R scripts on a schedule
     and commiting their results
+Depends:
+    R (>= 4.0)
 Imports:
     RSelenium, 
     stringr,
-    dplyr,
     readr,
     rvest
     wdman,
