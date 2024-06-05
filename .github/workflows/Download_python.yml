@@ -21,7 +21,7 @@ jobs:
         # Ensure you have the WebDriver executable for your browser available in the PATH
 
     - name: Download file
-      run: python scraper_test.py # Replace with the path to your Python script
+      run: python R/scraper_test.py # Replace with the path to your Python script
 
     - name: Commit and push changes
       run: |
