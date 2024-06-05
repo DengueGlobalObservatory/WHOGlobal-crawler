@@ -61,7 +61,8 @@ jobs:
             any::wdman
             any::binman
             any::netstat
-      - uses: browser-actions/setup-chrome@v1
+      - uses: browser-actions/setup-firefox@v1
+      - run: firefox --version
 
       - name: Generate data
         run: |
