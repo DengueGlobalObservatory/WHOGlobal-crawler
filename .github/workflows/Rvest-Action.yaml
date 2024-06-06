@@ -1,4 +1,4 @@
-name: Run Selenium On GitHub Action
+name: Run Rvest On GitHub Action
 on:
   workflow_dispatch:
 jobs:
