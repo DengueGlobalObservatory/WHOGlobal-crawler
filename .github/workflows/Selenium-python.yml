@@ -1,7 +1,7 @@
 name: Download and Push File
 
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   download_and_push:
@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -29,4 +29,4 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add --all
           git commit -am "add data"
-          git push 
+          git push
