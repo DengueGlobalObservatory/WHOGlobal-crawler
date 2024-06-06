@@ -60,7 +60,7 @@ jobs:
        
       - name: Generate data
         run: |
-          source("R/web_crawler.R")
+          source("scraper/Rvest_crawler.R")
         shell: Rscript {0}
 
       - name: Commit files
