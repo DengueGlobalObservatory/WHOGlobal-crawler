@@ -1,7 +1,7 @@
 library(stringr)
 library(readr)
 library(rvest)
-
+library(dplyr)
 
 # Extract the date of data report ===========================
 url <- "https://worldhealthorg.shinyapps.io/dengue_global/"
@@ -24,6 +24,31 @@ table <- data.frame(Sys_date = Sys.time(),
 
 # append at the end of the csv the new data
 write_csv(table, file = paste0('data/report_date.csv'), append = TRUE)
+
+
+# Read the last date from the CSV file
+path <- "data/report_date.csv"
+table <- read_csv(path)%>%
+  arrange(desc(Sys_date))
+
+last_report_date <- table$Report_date[1]
+second_last_date <- table$Report_date[2]
+
+last_report_date == second_last_date
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Download global data =====================================
