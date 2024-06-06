@@ -57,6 +57,7 @@ jobs:
           packages: |
             any::rvest
             any::stringr
+            any::dplyr
        
       - name: Generate data
         run: |
