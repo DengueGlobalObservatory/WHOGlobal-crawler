@@ -23,10 +23,10 @@ jobs:
       - name: Create Downloads directory
         run: mkdir -p ${{ github.workspace }}/Downloads
             
-      # Step 2: Get the latest data and store it as a CSV
+      # Get the latest data and store it as a CSV
       - name: Fetch latest data
         run: |-        
-          curl "https://raw.githubusercontent.com/ahyoung-lim/DengueCrawler/ac9bcccf6ece2e5ecdf3d66587bdd2488b4398a1/data/report_date.csv" -o report_date.csv
+          curl "https://raw.githubusercontent.com/ahyoung-lim/DengueCrawler/main/data/report_date.csv" -o report_date.csv
               
       - name: Running the Python script
         run: python scraper/All-job.py

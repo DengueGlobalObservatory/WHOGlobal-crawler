@@ -4,6 +4,9 @@ import pandas as pd
 import re
 import os
 from pathlib import Path # import path library to work with file paths
+from datetime import date
+from datetime import datetime
+
 
 # Fetch the webpage
 url = "https://worldhealthorg.shinyapps.io/dengue_global/"
@@ -21,38 +24,39 @@ match = re.search(pattern, str(soup), re.MULTILINE)
 
 # Extract the date after "Data reported as of"
 # Search for the pattern in the text
-if match:
-    # Extract the matched date
-    date = match.group(1)
-    print(f"Extracted Date: {date}")
 
-    # Create a new DataFrame with today's date and the extracted report date
-    table = [{'Sys_date': pd.Timestamp.now(), 'Report_date': pd.to_datetime(date)}]
-    table = pd.DataFrame(table)
-    print(table)
+# Extract the matched date
+date_string = match.group(1)
+# Parse the input date string into a datetime object
+date_string = datetime.strptime(date_string, "%d %B %Y")
+# Format the datetime object into the desired format
+formatted_date = date_string.strftime("%Y-%m-%d")
 
-else:
-    print("No date found after 'Data reported as of'")
+print(f"Extracted Date: {formatted_date}")
 
+# Create a new DataFrame with today's date and the extracted report date
+today = date.today()
+table = [{'Sys_date': today.strftime('%Y-%m-%d'), 'Report_date': formatted_date}]
+table = pd.DataFrame(table)
+print(table)
 
 
 # Append the new data to the existing CSV file
-# Set the download directory to the GitHub repository folder
-df_current = pd.read_csv('report_date.csv')
+df_current = table
 
-path = Path("report_date.csv")
+path = Path("data/report_date.csv")
 
 if path.is_file() == False:
   # if false, save initial main file  
-  df_current.to_csv("report_date.csv", index = False)
+  df_current.to_csv("data/report_date.csv", index = False)
 
 else:
   # if the file already exists, save it to a dataframe and then append to a new one    
-  df_main_old = pd.read_csv("report_date.csv")
-  df_main_new = pd.concat([df_main_old,df_current])
+  df_main_old = pd.read_csv("https://raw.githubusercontent.com/ahyoung-lim/DengueCrawler/main/data/report_date.csv")
+  df_main_new = pd.concat([df_main_old, df_current])
 
-  # save to dataframe and overwrite the old usgs_main file
-  df_main_new.to_csv("report_date.csv", index = False)
+  # save to dataframe and overwrite the old file
+  df_main_new.to_csv("data/report_date.csv", index = False)
 
   # Read the last date from the CSV file
   df_main_new['Sys_date'] = pd.to_datetime(df_main_new['Sys_date'], format='%Y-%m-%d')
