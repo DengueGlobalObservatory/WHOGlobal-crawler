@@ -55,8 +55,8 @@ else:
   df_main_new.to_csv("report_date.csv", index = False)
 
   # Read the last date from the CSV file
-  df_main_new['Sys_date'] = pd.to_datetime(df_main_new['Sys_date'])
-  df_main_new['Report_date'] = pd.to_datetime(df_main_new['Report_date'])
+  df_main_new['Sys_date'] = pd.to_datetime(df_main_new['Sys_date'], format='%Y-%m-%d')
+  df_main_new['Report_date'] = pd.to_datetime(df_main_new['Report_date'], format='%Y-%m-%d')
 
   df_main_new = df_main_new.sort_values(by='Sys_date', ascending=False)
 
