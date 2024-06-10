@@ -3,9 +3,8 @@ This repository contains scripts to scrape global dengue data using R and Python
 
 ## Structure
 ### `scraper`
-- **`Rvest_crawler.R`**: An R script that extracts data using the `rvest` package and saves the results to `data/report_date.csv`.
-- **`Selenium-action.py`**: A Python script that runs Selenium to download global dengue data from the [WHO Global Dengue Dashboard](https://worldhealthorg.shinyapps.io/dengue_global/).
+- **`All-job.py`**: A Python script that runs Selenium to download global dengue data from the [WHO Global Dengue Dashboard](https://worldhealthorg.shinyapps.io/dengue_global/). Datasets will be added automatically to the Downloads folder only if the data reporting date has been updated on the website. 
 
 ### `.github/workflows`
-- **`Rvest-Action.yaml`**: A GitHub Actions workflow file to run the `Rvest_crawler.R` script.
-- **`Selenium-Action.yaml`**: A GitHub Actions workflow file to run the `Selenium-action.py` script.
+- **`All-Action.yaml`**: A GitHub Actions workflow file to run the `All-job.py` script.
+
