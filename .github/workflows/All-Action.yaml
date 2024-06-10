@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 10 * * *' # 10 am every day
 jobs:
-  scrape:
+  Scraping data:
     runs-on: ubuntu-latest
     steps:
       - name: Checking out repo
@@ -28,12 +28,12 @@ jobs:
       # Get the latest data and store it as a CSV
       - name: Fetch latest data
         run: |-        
-          curl "https://raw.githubusercontent.com/ahyoung-lim/DengueCrawler/main/data/report_date.csv" -o report_date.csv
+          curl "https://raw.githubusercontent.com/ahyoung-lim/DengueCrawler/main/data/report_date.csv" -o data/report_date.csv
               
       - name: Running the Python script
         run: python scraper/All-job.py
         
-      - name: Commit and Push The Results From Python Selenium Action
+      - name: Commit and Push 
         run: |
          git config --global user.name "github-actions[bot]"
          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
