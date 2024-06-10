@@ -38,13 +38,11 @@ else:
 # Append the new data to the existing CSV file
 # Set the download directory to the GitHub repository folder
 github_workspace = os.getenv('GITHUB_WORKSPACE')
-csv_path = os.path.join(github_workspace, 'data')
-if os.path.exists(csv_path):
-    df = pd.read_csv(csv_path)
-    df = pd.concat([df, table])
-else:
-    df = table.copy()
+csv_path = os.path.join(github_workspace, 'data/report_date.csv')
+df = pd.read_csv(csv_path)
+df = pd.concat([df, table])
 
+# update and save CSV
 df.to_csv(csv_path, index=False)
 
 # Read the last date from the CSV file
