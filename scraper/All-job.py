@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import re
 import os
+from pathlib import Path # import path library to work with file paths
 
 # Fetch the webpage
 url = "https://worldhealthorg.shinyapps.io/dengue_global/"
@@ -37,24 +38,30 @@ else:
 
 # Append the new data to the existing CSV file
 # Set the download directory to the GitHub repository folder
-github_workspace = os.getenv('GITHUB_WORKSPACE')
-csv_path = os.path.join(github_workspace, 'data/report_date.csv')
-df = pd.read_csv(csv_path)
-df = pd.concat([df, table])
+df_current = pd.read_csv('report_date.csv')
 
-# update and save CSV
-df.to_csv(csv_path, index=False)
+path = Path("report_date.csv")
 
-# Read the last date from the CSV file
-df['Sys_date'] = pd.to_datetime(df['Sys_date'])
-df['Report_date'] = pd.to_datetime(df['Report_date'])
+if path.is_file() == False:
+  # if false, save initial main file  
+  df_current.to_csv("report_date.csv", index = False)
 
-df = df.sort_values(by='Sys_date', ascending=False)
+else:
+  # if the file already exists, save it to a dataframe and then append to a new one    
+  df_main_old = pd.read_csv("report_date.csv")
+  df_main_new = pd.concat([df_main_old,df_current])
 
-last_report_date = df['Report_date'].iloc[0]
-second_last_date = df['Report_date'].iloc[1]
+  # save to dataframe and overwrite the old usgs_main file
+  df_main_new.to_csv("report_date.csv", index = False)
 
+  # Read the last date from the CSV file
+  df_main_new['Sys_date'] = pd.to_datetime(df_main_new['Sys_date'])
+  df_main_new['Report_date'] = pd.to_datetime(df_main_new['Report_date'])
 
+  df_main_new = df_main_new.sort_values(by='Sys_date', ascending=False)
+
+  last_report_date = df_main_new['Report_date'].iloc[0]
+  second_last_date = df_main_new['Report_date'].iloc[1]
 
 if last_report_date == second_last_date: 
     print("No data updates")
