@@ -17,6 +17,7 @@ jobs:
           pip install selenium
           pip install bs4
           pip install pandas
+          pip install requests
 
         
       - name: Create Downloads directory
