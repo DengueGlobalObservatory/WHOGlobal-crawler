@@ -46,6 +46,8 @@ print(df_current)
 
 # if the file already exists, save it to a dataframe and then append to a new one    
 df_main_old = pd.read_csv("https://raw.githubusercontent.com/ahyoung-lim/DengueCrawler/main/data/report_date.csv")
+print(df_main_old)
+
 df_main_new = pd.concat([df_main_old, df_current])
 
 # save to dataframe and overwrite the old file
