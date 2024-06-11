@@ -16,7 +16,7 @@ date_paragraph <- web_page %>%
 date_after_phrase <- gsub("^.*Data reported as of ", "", date_paragraph, perl = TRUE)
 print(date_after_phrase)
 date_pattern <-  "(\\d{1,2})\\s[A-Za-z]+\\s\\d{4}"
-report_date <- as.Date(str_extract(date_paragraph[2], date_pattern), format = "%d %B %Y")
+report_date <- as.Date(str_extract(date_paragraph[3], date_pattern), format = "%d %B %Y")
 
 # create a new row of data, with todayd's date and urls number
 table <- data.frame(Sys_date = Sys.time(),
