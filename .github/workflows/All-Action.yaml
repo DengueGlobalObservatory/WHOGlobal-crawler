@@ -2,7 +2,7 @@ name: Web crawling on Github Action
 on:
   workflow_dispatch:
   schedule:
-    - cron: '59 9 * * *' # 09:30 am UTC every day
+    - cron: '20 10 * * *' # 09:30 am UTC every day
 
 jobs:
   Scraping_data:
