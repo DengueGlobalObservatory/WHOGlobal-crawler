@@ -12,7 +12,7 @@ response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
 # Select the paragraph containing the date
-date_paragraph = soup.find('p', text=lambda t: t and "Data reported as of" in t).get_text(strip=True)
+date_paragraph = soup.find('p', string=lambda t: t and "Data reported as of" in t).get_text(strip=True)
 
 # Define a regular expression pattern to match the date after "Data reported as of"
 pattern = r"; Data reported as of\n\s*(\d+\s+[A-Za-z]+\s+\d+)"
