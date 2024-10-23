@@ -65,6 +65,7 @@ if last_report_date == second_last_date:
 
 # If the date has been updated then run Selenium and download data
 else: 
+    print("Downloading data")
     from selenium import webdriver
     from selenium.webdriver.common.keys import Keys
     from selenium.webdriver.common.by import By
