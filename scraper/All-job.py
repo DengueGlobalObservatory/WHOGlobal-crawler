@@ -10,21 +10,25 @@ from datetime import datetime
 url = "https://worldhealthorg.shinyapps.io/dengue_global/"
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
+print(soup.prettify())
 
 # Select the paragraph containing the date
-date_paragraph = soup.find('p', string=lambda t: t and "Data reported as of" in t).get_text(strip=True)
+date_paragraph = soup.find('span', string=lambda t: t and "Data reported as of" in t)
 
 # Define a regular expression pattern to match the date after "Data reported as of"
-pattern = r"; Data reported as of\n\s*(\d+\s+[A-Za-z]+\s+\d+)"
+#pattern = r"; Data reported as of\n\s*(\d+\s+[A-Za-z]+\s+\d+)"
 
 # Search for the pattern in the text
-match = re.search(pattern, str(soup), re.MULTILINE)
+#match = re.search(pattern, date_paragraph)
+
 
 # Extract the date after "Data reported as of"
 # Search for the pattern in the text
 
 # Extract the matched date
-date_string = match.group(1)
+#date_string = match.group(1)
+date_string = date_paragraph.next_sibling.strip()
+
 # Parse the input date string into a datetime object
 date_string = datetime.strptime(date_string, "%d %B %Y")
 # Format the datetime object into the desired format
