@@ -4,6 +4,7 @@ import pandas as pd
 import re
 import os
 from datetime import datetime
+from io import StringIO
 
 
 # Fetch the webpage
@@ -43,13 +44,21 @@ table = [{'Sys_date': now.strftime('%Y-%m-%d %H:%M'), 'Report_date': formatted_d
 df_current = pd.DataFrame(table)
 print(df_current)
 
+# access to CSV in git repo
+token = "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"
+headers = {'Authorization': f'token {token}'}
+
+response = requests.get("https://raw.githubusercontent.com/ahyoung-lim/DengueCrawler/main/data/report_date.csv", headers=headers)
+
+if response.status_code == 200:
+    # Read the CSV content into a DataFrame
+    csv_content = StringIO(response.text)
+    df_main_old = pd.read_csv(csv_content)
+    print(df_main_old.head())
+else:
+    print(f"Failed to fetch data. Status code: {response.status_code}")
 
 # Append the new data to the existing CSV file
-
-# if the file already exists, save it to a dataframe and then append to a new one    
-df_main_old = pd.read_csv("https://raw.githubusercontent.com/ahyoung-lim/DengueCrawler/main/data/report_date.csv")
-print(df_main_old)
-
 df_main_new = pd.concat([df_main_old, df_current])
 
 # save to dataframe and overwrite the old file
