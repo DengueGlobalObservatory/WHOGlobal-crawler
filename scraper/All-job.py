@@ -45,7 +45,7 @@ df_current = pd.DataFrame(table)
 print(df_current)
 
 # access to CSV in git repo
-token = "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"
+token = "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"
 headers = {'Authorization': f'token {token}'}
 
 response = requests.get("https://raw.githubusercontent.com/ahyoung-lim/DengueCrawler/main/data/report_date.csv", headers=headers)
