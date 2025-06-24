@@ -40,7 +40,7 @@ if not token:
     raise ValueError("GITHUB_TOKEN environment variable not set")
 
 headers = {'Authorization': f'token {token}'}
-response = requests.get("https://raw.githubusercontent.com/DengueGlobalObservatory/DengueCrawler/main/data/report_date.csv", headers=headers)
+response = requests.get("https://raw.githubusercontent.com/DengueGlobalObservatory/WHOGlobal-crawler/main/data/report_date.csv", headers=headers)
 
 if response.status_code == 200:
     # Read the CSV content into a DataFrame
