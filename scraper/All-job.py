@@ -17,17 +17,7 @@ print(soup.prettify())
 date_paragraph = soup.find('span', string=lambda t: t and "Data reported as of" in t)
 
 # Define a regular expression pattern to match the date after "Data reported as of"
-#pattern = r"; Data reported as of\n\s*(\d+\s+[A-Za-z]+\s+\d+)"
-
-# Search for the pattern in the text
-#match = re.search(pattern, date_paragraph)
-
-
-# Extract the date after "Data reported as of"
-# Search for the pattern in the text
-
 # Extract the matched date
-#date_string = match.group(1)
 date_string = date_paragraph.next_sibling.strip()
 
 # Parse the input date string into a datetime object
@@ -44,11 +34,13 @@ table = [{'Sys_date': now.strftime('%Y-%m-%d %H:%M'), 'Report_date': formatted_d
 df_current = pd.DataFrame(table)
 print(df_current)
 
-# access to CSV in git repo
-token = "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"
-headers = {'Authorization': f'token {token}'}
+# Access to CSV in git repo - get token from environment variable
+token = os.getenv('GITHUB_TOKEN')
+if not token:
+    raise ValueError("GITHUB_TOKEN environment variable not set")
 
-response = requests.get("https://raw.githubusercontent.com/ahyoung-lim/DengueCrawler/main/data/report_date.csv", headers=headers)
+headers = {'Authorization': f'token {token}'}
+response = requests.get("https://raw.githubusercontent.com/DengueGlobalObservatory/DengueCrawler/main/data/report_date.csv", headers=headers)
 
 if response.status_code == 200:
     # Read the CSV content into a DataFrame
@@ -73,11 +65,11 @@ df_main_new = df_main_new.sort_values(by='Sys_date', ascending=False)
 last_report_date = df_main_new['Report_date'].iloc[0]
 second_last_date = df_main_new['Report_date'].iloc[1]
 
-if last_report_date == second_last_date: 
+if last_report_date == second_last_date:
    print("No data updates")
 
 # If the date has been updated then run Selenium and download data
-else: 
+else:
     print("Downloading data")
     from selenium import webdriver
     from selenium.webdriver.common.keys import Keys
@@ -87,11 +79,11 @@ else:
     from selenium.webdriver.chrome.options import Options
     from selenium.webdriver.chrome.service import Service
     import time
-    
-    chrome_options = Options()    
+
+    chrome_options = Options()
     options = [
     # Define window size here
-    "--headless",
+    # "--headless",
     "--disable-gpu",
     "--window-size=1920,1200",
     "--ignore-certificate-errors",
@@ -104,11 +96,18 @@ else:
         chrome_options.add_argument(option)
 
     # Set the download directory to the GitHub repository folder
-    github_workspace = os.getenv('GITHUB_WORKSPACE')
-    download_directory = os.path.join(github_workspace, 'Downloads')
+    if os.getenv('GITHUB_WORKSPACE'):
+        # Running in GitHub Actions
+        github_workspace = os.path.join(os.getenv('GITHUB_WORKSPACE'))
+        download_directory = os.path.join(github_workspace, 'Downloads')
+
+    else:
+        # Running locally
+        github_workspace = os.path.join(os.getcwd())
+        download_directory = os.path.join(github_workspace, 'Downloads')
 
     prefs = {"download.default_directory": download_directory,}
-        
+
     chrome_options.add_experimental_option("prefs", prefs)
 
     driver = webdriver.Chrome(service=Service(), options = chrome_options)
@@ -124,9 +123,6 @@ else:
     )
     driver.execute_script("arguments[0].scrollIntoView();", accept_button)
     driver.execute_script("arguments[0].click();", accept_button)
-
-    #accept_button.click()
-
 
     # Find and click the "Download Data" link in the menu
     download_link = WebDriverWait(driver, 20).until(
