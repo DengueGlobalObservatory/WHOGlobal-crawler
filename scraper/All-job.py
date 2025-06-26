@@ -83,7 +83,7 @@ else:
     chrome_options = Options()
     options = [
     # Define window size here
-    # "--headless",
+    "--headless",
     "--disable-gpu",
     "--window-size=1920,1200",
     "--ignore-certificate-errors",
